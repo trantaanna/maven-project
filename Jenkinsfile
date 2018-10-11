@@ -23,7 +23,7 @@ pipeline {
 	                env['tag'] = "${currentBuild.number} - MVN ${result.getNumber()}"
 	                env['GIT_COMMIT'] = result.rawBuild.environment.GIT_COMMIT
                 	
-                	println( "$env['tag']")
+                	println( "${env.tag}")
                 }
             }
             post {
@@ -54,19 +54,9 @@ pipeline {
         	steps{
         		echo 'Check out git'
         		git url: 'https://github.com/trantaanna/maven-project.git'
-
-				script {
-
-					sshagent(['Jenkins']) {
-					   withEnv(["BUILD_FULL_VERSION=${BUILD_FULL_VERSION}","GIT_COMMIT=${GIT_COMMIT}"]) {
-							sh """git config --global user.email \"dstudt@cylance.com\"
-		git config --global user.name \"jenkins_builder\"
-		git tag -a ${BUILD_FULL_VERSION} ${GIT_COMMIT} -m \"Auto Tag ${BUILD_FULL_VERSION}\"
-							"""
-							sh """git push origin ${BUILD_FULL_VERSION}"""
-						}
-					}
-				}
+        		script{
+        			println( "${env.tag} ${env.GIT_COMMIT}")
+        		}
         	}
         }
     }
