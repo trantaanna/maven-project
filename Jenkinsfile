@@ -22,8 +22,9 @@ pipeline {
 
 	                env['tag'] = "${currentBuild.number} - MVN ${result.getNumber()}"
 	                env['GIT_COMMIT'] = result.rawBuild.environment.GIT_COMMIT
+                	
+                	println( "$env['tag']")
                 }
-                echo "${env['tag']}"
             }
             post {
                 success {
