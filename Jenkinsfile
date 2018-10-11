@@ -11,7 +11,7 @@ pipeline {
             	echo "${GIT_COMMMIT}"
 
 				def result = build(
-                    job: 'mvn_build',
+                    job: 'mvn_build'
                 )
                 println(
                 	"MVN build: ${result.getNumber()}\n"
