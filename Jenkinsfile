@@ -1,14 +1,12 @@
 pipeline {
     agent any
-    tools {
-        maven 'localMaven'
-    }
+
     stages{
         stage('Build MVN'){
             steps {
             	echo "BUILD information before build start ...."
-            	echo "${BRANCH}"
-            	echo "${GIT_COMMMIT}"
+            	echo "Branch: ${BRANCH}"
+            	echo "Git Commit: ${GIT_COMMMIT}"
             	script {
 					def result = build(
 	                    job: 'mvn_build'
@@ -19,12 +17,16 @@ pipeline {
 	                )
                 }
                 echo "${result.rawBuild.environment.GIT_COMMIT}"
+
+                echo "Current Build: ${currentBuild.number}"
             }
             post {
                 success {
                     echo 'Done build...'
-                    echo "${currentBuild.number}"
      
+                }
+                failure {
+                	echo 'FAILED to build mvn'
                 }
             }
         }
