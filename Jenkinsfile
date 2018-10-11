@@ -14,11 +14,11 @@ pipeline {
 
 	                println(
 	                	"MVN build: ${result.getNumber()}\n"
+	                	"${result.rawBuild.environment.GIT_COMMIT}\n"
+	                	"Current Build: ${currentBuild.number}\n"
 	                )
                 }
-                echo "${result.rawBuild.environment.GIT_COMMIT}"
 
-                echo "Current Build: ${currentBuild.number}"
             }
             post {
                 success {
