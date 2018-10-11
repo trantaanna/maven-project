@@ -17,7 +17,7 @@ pipeline {
 	                	"Branch: ${result.rawBuild.environment.BRANCH}\n" +
 	                	"GIT_COMMIT: ${result.rawBuild.environment.GIT_COMMIT}\n" +
 	                	"Current Build: ${currentBuild.number}\n" +
-	                	"# ${currentBuild.number} - MVN ${result.getNumber()}\n"
+	                	"... ${currentBuild.number} - MVN ${result.getNumber()}\n"
 	                )
 
 	                env['tag'] = "${currentBuild.number} - MVN ${result.getNumber()}"
