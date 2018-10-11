@@ -5,8 +5,8 @@ pipeline {
         stage('Build MVN'){
             steps {
             	echo "BUILD information before build start ...."
-            	echo "Branch: ${BRANCH}"
-            	echo "Git Commit: ${GIT_COMMMIT}"
+            	echo '...'
+            	echo '...'
             	script {
 					def result = build(
 	                    job: 'mvn_build'
