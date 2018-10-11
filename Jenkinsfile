@@ -4,31 +4,31 @@ pipeline {
         maven 'localMaven'
     }
     stages{
-        stage('Build'){
+        stage('Build MVN'){
             steps {
-                bat 'mvn clean package'
+            	echo 'BUILD information before build start ....'
+            	echo "${BRANCH}"
+            	echo "${GIT_COMMMIT}"
+
+				def result = build(
+                    job: 'mvn_build',
+                )
+                println(
+                	"MVN build: ${result.getNumber()}\n"
+                )
+                echo "${result.rawBuild.environment.GIT_COMMIT}"
             }
             post {
                 success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    echo 'Done build...'
+                    echo "${currentBuild.number}"
+     
                 }
             }
         }
-        stage ('Deploy to Staging'){
+        stage ('Dummy build'){
             steps {
-            	echo 'Now deploy to staging ...'
-                build job: 'deploy-to-staging'
-            }
-        }
-        stage ('Deploy to Production'){
-            steps{
-            		echo 'Now deploy to staging ...'
-                	timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                }
-
-                build job: 'Deploy-to-Prod'
+            	echo 'Hello World inside Dummy build ...'
             }
             post {
                 success {
