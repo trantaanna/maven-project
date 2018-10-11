@@ -1,7 +1,3 @@
-def git_commit
-def build
-def mvn_build
-
 pipeline {
     agent any
 
@@ -22,11 +18,9 @@ pipeline {
 	                	"GIT_COMMIT: ${result.rawBuild.environment.GIT_COMMIT}\n" +
 	                	"Current Build: ${currentBuild.number}\n"
 	                )
-	                git_commit = result.rawBuild.environment.GIT_COMMIT
-	                mvn_build = result.getNumber()
-	                build =  currentBuild.number
-	                env['BUILD_FULL_VERSION'] = "Proj Build ${build} - MVN ${mvn_build}"
-	                env['GIT_COMMIT'] = git_commit
+
+	                env['BUILD_FULL_VERSION'] = "Proj Build ${currentBuild.number} - MVN ${result.getNumber()}"
+	                env['GIT_COMMIT'] = result.rawBuild.environment.GIT_COMMIT
                 }
                 echo "${env['BUILD_FULL_VERSION']}"
             }
