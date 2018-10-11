@@ -18,11 +18,11 @@ pipeline {
 	                	"GIT_COMMIT: ${result.rawBuild.environment.GIT_COMMIT}\n" +
 	                	"Current Build: ${currentBuild.number}\n"
 	                )
-
-	                env['BUILD_FULL_VERSION'] = "Proj Build ${currentBuild.number} - MVN ${result.getNumber()}"
+	                echo  "Build ${currentBuild.number} - MVN ${result.getNumber()}"
+	                env['tag'] = "Build ${currentBuild.number} - MVN ${result.getNumber()}"
 	                env['GIT_COMMIT'] = result.rawBuild.environment.GIT_COMMIT
                 }
-                echo "${env['BUILD_FULL_VERSION']}"
+                echo "${env['tag']}"
             }
             post {
                 success {
